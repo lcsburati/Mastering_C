@@ -1,0 +1,22 @@
+# Object files
+*.o
+
+# Executables
+*.out
+*.exe
+main
+
+# Libraries
+*.a
+*.dylib
+*.so
+
+# Debug symbols (Mac)
+*.dSYM/
+
+# OS specific
+.DS_Store
+
+# Editor specifics
+.vscode/
+.idea/
