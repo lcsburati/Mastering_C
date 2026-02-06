@@ -6,7 +6,7 @@ int my_strlen(const char *str)
 {
     int lenght = 0;
 
-    while (*str != '\0')
+    while (*str)
     {
         lenght++;
         str++;

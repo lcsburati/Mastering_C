@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "string_utils.h"
 
+
 int main(int argc, char **argv)
 {
     if (argc != 1)
@@ -28,8 +29,8 @@ int main(int argc, char **argv)
         case 1: 
             printf("Enter a string: ");
             scanf("%s", str);
-            int lenght = my_strlen(str);
-            printf("Length of the string: %d\n", lenght);
+            int length = my_strlen(str);
+            printf("Length of the string: %d\n", length);
             break;
 
         case 2:
