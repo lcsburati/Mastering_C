@@ -64,13 +64,14 @@ int main(int argc, char **argv)
             else
             {
                 printf("The strings are not equal\n");
-                double difference_percentage = my_strcmp_percent(str, str2, 2);
-                printf("Difference percentage: %f\n", difference_percentage);
+                double difference_percentage = my_strcmp_percent(str, str2);
+                // Alterado difference para equality
+                printf("Equality percentage: %f\n", difference_percentage);
             }
             break;
 
         case 5:
-            printf("Leaving...\n");
+            printf("Program Finished\n");
             break;
 
         default:
