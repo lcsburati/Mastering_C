@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "math_utils.h" 
 
-// Defined as static because it's used by both my_toupper and my_tolower in this file.
+// Defined as static because it's used by both my_toupper and my_tolower only in this file.
 static const int OFFSET = 'a' - 'A'; 
 
 int my_strlen(const char *str)
@@ -113,33 +114,43 @@ int my_strcmp(const char *str1, const char *str2)
 
 double my_strcmp_percent(const char *str1, const char *str2)
 {
-    double percentage = 0;
     int str1_length = my_strlen(str1);
     int str2_length = my_strlen(str2);
-
-    if (str1_length >= str2_length)
-    {
-        while (*str2)
-        {
-            percentage += ((((*str1 + *str2) / *str1) - 1) * 100.0) / str1_length;
-            str2++;
-            str1++;
-        }
-
-        return percentage;
+    
+    int **matrix = malloc((str1_length + 1) * sizeof(int*));
+    for (int i = 0; i <= str1_length; i++) {
+        matrix[i] = malloc((str2_length + 1) * sizeof(int));
     }
-    else if (str1_length < str2_length)
-    {
-        while (*str1)
-        {
-            percentage += ((((*str1 + *str2) / *str1) - 1) * 100.0) / str2_length;
-            str2++;
-            str1++;
-        }
 
-        return percentage;
+    for (int i = 0; i <= str1_length; i++) {
+        matrix[i][0] = i;
     }
-    return 1.0;
+    for (int j = 0; j <= str2_length; j++) {
+        matrix[0][j] = j;
+    }
 
+    for (int i = 1; i <= str1_length; i++) {
+        for (int j = 1; j <= str2_length; j++) {
+            int cost = (str1[i - 1] == str2[j - 1]) ? 0 : 1;
+            matrix[i][j] = min(
+                matrix[i - 1][j] + 1,       
+                matrix[i][j - 1] + 1,       
+                matrix[i - 1][j - 1] + cost 
+            );
+        }
+    }
 
+    int distance = matrix[str1_length][str2_length];
+    int max_len = (str1_length > str2_length) ? str1_length : str2_length;
+    
+    if (max_len == 0) return 100.0;
+    
+    double percent = 100.0 * (1.0 - (double)distance / max_len);
+
+    for (int i = 0; i <= str1_length; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+
+    return percent;
 }
