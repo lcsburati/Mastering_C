@@ -1,23 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int distance = 'a' - 'A'; 
+// Defined as static because it's used by both my_toupper and my_tolower in this file.
+static const int OFFSET = 'a' - 'A'; 
+
 int my_strlen(const char *str)
 {
-    int lenght = 0;
+    int length = 0;
 
     while (*str)
     {
-        lenght++;
+        length++;
         str++;
     }
-    return lenght;
+    return length;
 }
 
 char *my_tolower(const char *str)
 {
-    int lenght = my_strlen(str);
-    char *result = malloc(sizeof(char) * (lenght + 1));
+    int length = my_strlen(str);
+    char *result = malloc(sizeof(char) * (length + 1));
     if (result == NULL)
     {
         printf("Memory allocation failed\n");
@@ -30,7 +32,7 @@ char *my_tolower(const char *str)
     {
         if (*str >= 'A' && *str <= 'Z')
         {
-            *current = *str + distance;
+            *current = *str + OFFSET;
             str++;
             current++;
         } 
@@ -47,8 +49,8 @@ char *my_tolower(const char *str)
 
 char *my_toupper(const char *str)
 {
-    int lenght = my_strlen(str);
-    char *result = malloc(sizeof(char) * (lenght + 1));
+    int length = my_strlen(str);
+    char *result = malloc(sizeof(char) * (length + 1));
     if (result == NULL)
     {
         printf("Memory allocation failed\n");
@@ -60,7 +62,7 @@ char *my_toupper(const char *str)
     {
         if (*str >= 'a' && *str <= 'z')
         {
-            *current = *str - distance;
+            *current = *str - OFFSET;
             str++;
             current++;
         }
